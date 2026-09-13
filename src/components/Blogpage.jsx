@@ -286,9 +286,9 @@ function Blogpage() {
                         <div className="blog-loader-wrap">
                             <div className="cyber-spinner" role="status" aria-label="Loading blog posts"></div>
                             <p className="blog-loader-text">
-                                <span className="text-[#00e5ff]">$</span> querying database<span className="blog-loader-dots">...</span>
+                                <span className="text-[#00e5ff]">$</span>Loading<span className="blog-loader-dots">...</span>
                             </p>
-                            <p className="blog-loader-sub">fetching posts from MongoDB</p>
+                            <p className="blog-loader-sub">fetching data from the server </p>
                         </div>
                     ) : initialPosts.length === 0 ? (
                         <div className="blog-empty">
