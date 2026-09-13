@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import Homepage from "./components/Homepage.jsx"
 import Loginpage from "./components/Loginpage.jsx"
 import Signuppage from "./components/Signuppage.jsx"
@@ -11,6 +11,7 @@ function App() {
       <Route path="/login" element={<Loginpage />} />
       <Route path="/signup" element={<Signuppage />} />
       <Route path="/blog" element={<Blogpage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Homepage.css";
 import "./Blogpage.css";
 import { onAuthStateChanged, signOut } from "firebase/auth";
@@ -7,6 +7,7 @@ import { auth } from "./config";
 import axios from "axios"
 
 function Blogpage() {
+    const navigate = useNavigate();
     const RAW_API_URL = import.meta.env.VITE_API_URL || "https://blog-port-backend.vercel.app";
     const API_URL = RAW_API_URL.replace(/\/+$/, "");
     const [isAdmin,setIsAdmin] = useState(false);
@@ -139,6 +140,7 @@ function Blogpage() {
 
     const handleCreateBlog = (e) => {
         if (e) e.preventDefault();
+        if (isSubmitting) return;
         if (!newTitle.trim() || !newDescription.trim()) {
             setCreateError("error: Title and description are required");
             return;
@@ -197,7 +199,7 @@ function Blogpage() {
                                 signOut(auth).then(() => {
                                     setLogIn(false);
                                     console.log("User Logged Out Successfully");
-                                    window.location.href = '/blog';
+                                    navigate("/blog");
                                 });
                             }} className="nav-link nav-link--cta">LogOut</button>))
                     }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Homepage.css";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./config";
@@ -125,26 +125,9 @@ const projects = [
 ];
 
 function Homepage() {
-
-
-
-    useEffect(() => {
-        const cards = document.querySelectorAll(".glow-card");
-        const handlers = [];
-        cards.forEach((card) => {
-            const move = (e) => {
-                const r = card.getBoundingClientRect();
-                card.style.setProperty("--mx", `${e.clientX - r.left}px`);
-                card.style.setProperty("--my", `${e.clientY - r.top}px`);
-            };
-            card.addEventListener("mousemove", move);
-            handlers.push([card, move]);
-        });
-        return () => handlers.forEach(([c, h]) => c.removeEventListener("mousemove", h));
-    }, []);
-
-
+    const navigate = useNavigate();
     const [IsLoggedIn, setLogIn] = useState(false);
+
     useEffect(() => {
         const unSub = onAuthStateChanged(auth, user => {
             if (user) {
@@ -182,7 +165,7 @@ function Homepage() {
                                 signOut(auth).then(() => {
                                     setLogIn(false);
                                     console.log("User Logged Out Successfully");
-                                    window.location.href = '/';
+                                    navigate("/");
                                 });
                             }} className="nav-link nav-link--cta">LogOut</button>))
                     }
