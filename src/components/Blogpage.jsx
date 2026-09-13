@@ -6,12 +6,9 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./config";
 import axios from "axios"
 
-
-
-const RAW_API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
-const API_URL = RAW_API_URL.replace(/\/+$/, "");
-
 function Blogpage() {
+    const RAW_API_URL = import.meta.env.VITE_API_URL || "https://blog-port-backend.vercel.app";
+    const API_URL = RAW_API_URL.replace(/\/+$/, "");
     const [isAdmin,setIsAdmin] = useState(false);
     const [initialPosts, setBlogs] = useState([]);
     const [likes, setLikes] = useState({});
@@ -48,7 +45,7 @@ function Blogpage() {
     useEffect(() => {
         const unSub = onAuthStateChanged(auth, user => {
             if (user) {
-                const adminUid = import.meta.env.VITE_ADMIN_UID;
+                const adminUid = import.meta.env.VITE_ADMIN_UID || "OV6kCjvizLfjAPjv2zQ90s61Q6h2";
                 console.log(user.uid === adminUid);
                 setIsAdmin(user.uid === adminUid);
                 setLogIn(true);
